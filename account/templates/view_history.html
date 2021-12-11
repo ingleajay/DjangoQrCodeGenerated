@@ -1,0 +1,45 @@
+<!doctype html>
+{% extends 'core/base_nav.html' %}
+{% load static %}
+{% block title %} View History {% endblock title %}
+{% block basecss %}
+<link rel="stylesheet" href="{% static 'account/css/dash.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/account.css' %}">
+{% endblock basecss %}
+{% block dash %}
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="card">
+        {% if pre %}
+        <div class="card-header">
+            Your Qr code history :
+        </div>
+        {% else %}
+        <div class="card-header">
+            You dont have any history :
+        </div>
+        {% endif %}
+        <div class="card-columns" style="margin-top: 20px;">
+            <div class="container-fluid">
+                {% for vh in pre %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <h4>Title : </h4>
+                            <p>{{vh.qr_title}}</p>
+                        </h5>
+                        <p class="card-text">
+                        <h4>Data : </h4>
+                        <p>{{vh.qr_link}}</p>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock dash %}

@@ -1,0 +1,62 @@
+{% extends 'core/base_nav.html' %}
+{% load static %}
+{% block title %} User Profile {% endblock title %}
+{% block basecss %}
+<link rel="stylesheet" href="{% static 'account/css/account.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
+<style>
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    label {
+        margin-top: 10px;
+    }
+
+</style>
+{% endblock basecss %}
+{% block profile %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 col-sm-12">
+            <form method="post" action="">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p>{{error}}</p>
+                {% endfor %}
+                {% endif %}
+                <div class="profile-form" style="margin-top: 20px;">
+                    <div class="card">
+                        <div class="card-header">
+                            View Users Profile
+                        </div>
+                        <div class="card-body">
+                            {{form.as_p}}
+                            <input type="submit" value="Save" class="btn">
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock profile %}

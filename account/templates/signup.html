@@ -1,0 +1,43 @@
+{% extends 'core/base_account.html' %}
+{% load static %}
+{% block title %} Signup {% endblock %}
+{% block accountcss %}
+<link rel="stylesheet" href="{% static 'account/css/signup.css' %}">
+{% endblock accountcss %}
+{% block signup %}
+<div class="signup-form">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if messages %}
+        {% for message in messages %}
+        <h5 {% if message.tags %} class="{{message.tags}}" {% endif %} style="text-align:center;">{{message}}</h5>
+        {% endfor %}
+        {% endif %}
+        <a href="{% url 'index' %}">
+            <img src="{% static 'account/img/qr_logo.jpg' %}" alt="" class="img-fluid rounded mx-auto d-block"
+                height="300" width="100" style="text-align: center;" />
+        </a>
+        <h2 style="text-align: center; margin-top: 5px;">Sign Up</h2>
+        <p>Please fill in this form to create an account!</p>
+        <hr>
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p>{{error}}</p>
+        {% endfor %}
+        {% endif %}
+        {% for fs in form %}
+        <div class="form-group">
+            <div class="input-group">
+                <div> {{fs.label_tag}} {{fs}} {{fs.errors}} </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+        <input type="submit" class="btn" value="Register" />
+    </form>
+    <div class="text-center" style="color: aliceblue;">Already have an account? <a href="{% url 'login' %}"
+            style="color: aliceblue; text-decoration: none;">Login
+            here</a></div>
+</div>
+{% endblock signup %}

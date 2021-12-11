@@ -1,0 +1,61 @@
+<!doctype html>
+{% extends 'core/base_nav.html' %}
+{% load static %}
+{% block title %} Dashboard {% endblock title %}
+{% block basecss %}
+<link rel="stylesheet" href="{% static 'account/css/dash.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/account.css' %}">
+{% endblock basecss %}
+{% block dash %}
+<div class="container-fluid " style="margin-top: 30px; ">
+    <h5 style="margin-left: 15px;">{{user.username}} , Welcome to your Dashboard : </h5>
+
+    <div class="row">
+        <div class="col-12 col-md-6 col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    Write Title and Paste Your link here :
+                </div>
+                <div class="card-body">
+                    <form action="/send" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3 ">
+                            <label for="title" class="form-label">Enter Your Title :</label>
+                            <input type="text" class="form-control " name="title" required>
+                        </div>
+                        <div class="mb-3 ">
+                            <label for="data" class="form-label">Enter Your URL:</label>
+                            <input type="text" class="form-control " name="data" required>
+                        </div>
+
+                        <button type="submit" id="qrcode" class="btn btn-primary">Generate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    Your qrcode Generated :
+                </div>
+                <div class="card-body">
+                    <div id="gen" style="margin-top: 10px;">
+                        {% if user.is_authenticated and data %}
+                        <div class="text-center">
+                            <img src="{% static 'account/img/test.png' %}" class="rounded img-fluid"
+                                alt="Please Enter Your URL">
+                        </div>
+                        {% else %}
+                        <div class="text-center">
+                            <h3>please enter your url </h3>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock dash %}
